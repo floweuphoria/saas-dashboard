@@ -9,7 +9,8 @@ import {
   Users,
   Settings,
   HelpCircle,
-  LogOut
+  LogOut,
+  Zap
 } from 'lucide-react';
 
 const DashboardLayout: React.FC = () => {
@@ -21,6 +22,7 @@ const DashboardLayout: React.FC = () => {
     { icon: LineChart, label: 'Analytics', path: '/dashboard/analytics', active: location.pathname === '/dashboard/analytics' },
     { icon: Users, label: 'Users', path: '/dashboard/users', active: location.pathname === '/dashboard/users' },
     { icon: Settings, label: 'Settings', path: '/dashboard/settings', active: location.pathname === '/dashboard/settings' },
+    { icon: Zap, label: 'Userflow Demo', path: '/dashboard/userflow', active: location.pathname === '/dashboard/userflow' },
     { icon: HelpCircle, label: 'Help', path: '/dashboard/help', active: location.pathname === '/dashboard/help' },
   ];
 

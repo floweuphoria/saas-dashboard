@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BarChart3, Eye, EyeOff } from 'lucide-react';
+import { identifyUser, trackEvent } from '../utils/userflow';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +11,18 @@ const Login: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Track login event
+    trackEvent('user_login', { email });
+    
+    // Simulate user identification after login
+    identifyUser('user-' + email.replace('@', '-').replace('.', '-'), {
+      email,
+      name: 'Demo User',
+      plan: 'Pro',
+      loginDate: new Date().toISOString()
+    });
+    
     // Simulate login
     navigate('/dashboard');
   };

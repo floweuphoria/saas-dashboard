@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import Login from './components/Login';
@@ -8,10 +8,16 @@ import Analytics from './components/Analytics';
 import Users from './components/Users';
 import Settings from './components/Settings';
 import Help from './components/Help';
+import UserflowDemo from './components/UserflowDemo';
 import DashboardLayout from './components/DashboardLayout';
+import { initUserflow } from './utils/userflow';
 import './App.css';
 
 function App() {
+  useEffect(() => {
+    // Initialize Userflow when the app starts
+    initUserflow();
+  }, []);
   return (
     <Router>
       <div className="App">
@@ -25,6 +31,7 @@ function App() {
             <Route path="users" element={<Users />} />
             <Route path="settings" element={<Settings />} />
             <Route path="help" element={<Help />} />
+            <Route path="userflow" element={<UserflowDemo />} />
           </Route>
         </Routes>
       </div>
