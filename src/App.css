@@ -1717,8 +1717,19 @@ input:checked + .toggle-slider:before {
   content: "Frigade Collection components will render here based on your dashboard configuration";
 }
 
-.collection-demo {
+.collection-demo,
+.survey-demo {
   margin-bottom: 2rem;
+}
+
+.survey-wrapper {
+  min-height: 150px;
+  background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 100%);
+  border: 2px dashed #f59e0b;
+}
+
+.survey-wrapper:empty::after {
+  content: "NPS Survey component will render here - configure in Frigade dashboard";
 }
 
 .hooks-info {

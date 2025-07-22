@@ -51,6 +51,19 @@ const FrigadeDemo: React.FC = () => {
       </div>
 
       <div className="demo-section">
+        <h3>📊 NPS Survey Component</h3>
+        <div className="survey-demo">
+          <div className="component-demo">
+            <h4><HelpCircle size={20} /> Net Promoter Score Survey</h4>
+            <p>Customer satisfaction survey with flow ID: flow_mWc4jwB5</p>
+            <div className="component-wrapper survey-wrapper">
+              <Frigade.Survey.NPS flowId="flow_mWc4jwB5" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="demo-section">
         <h3>🔧 Individual Frigade Flows</h3>
         <div className="frigade-components">
           
@@ -112,6 +125,13 @@ const FrigadeDemo: React.FC = () => {
           <div className="note-item">
             <HelpCircle size={20} />
             <div>
+              <strong>NPS Survey:</strong>
+              <p>Net Promoter Score survey with Flow ID: flow_mWc4jwB5</p>
+            </div>
+          </div>
+          <div className="note-item">
+            <HelpCircle size={20} />
+            <div>
               <strong>Individual Flows:</strong>
               <p>Create specific flows in dashboard and reference by flowId</p>
             </div>
@@ -127,12 +147,18 @@ const FrigadeDemo: React.FC = () => {
       </div>
 
       <div className="demo-section">
-        <h3>Available Frigade Hooks</h3>
+        <h3>Available Frigade Hooks & Components</h3>
         <div className="hooks-info">
+          <strong>Hooks:</strong><br/>
           <code>useFrigade()</code> - Main Frigade hook<br/>
           <code>useUser()</code> - Get current user data<br/>
           <code>useFlow(flowId)</code> - Get specific flow state<br/>
           <code>useGroup()</code> - Group functionality<br/>
+          <br/>
+          <strong>Survey Components:</strong><br/>
+          <code>Frigade.Survey.NPS</code> - Net Promoter Score survey<br/>
+          <code>Frigade.Survey.CSAT</code> - Customer Satisfaction survey<br/>
+          <code>Frigade.Survey.Custom</code> - Custom survey forms<br/>
         </div>
       </div>
     </div>
