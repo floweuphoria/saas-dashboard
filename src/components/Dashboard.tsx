@@ -1,4 +1,5 @@
 import React from 'react';
+import * as Frigade from '@frigade/react';
 import { 
   Users, 
   TrendingUp, 
@@ -51,7 +52,13 @@ const Dashboard: React.FC = () => {
         <h1>Dashboard Overview</h1>
         <p>Welcome back! Here's what's happening with your business today.</p>
       </div>
-          <div className="stats-grid">
+
+      {/* Frigade Collapsible Checklist */}
+      <div className="dashboard-checklist">
+        <Frigade.Checklist.Collapsible flowId="flow_5hqQEJCC" />
+      </div>
+
+      <div className="stats-grid">
             <div className="stat-card">
               <div className="stat-icon">
                 <Users size={24} />

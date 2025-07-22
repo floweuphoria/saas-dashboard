@@ -614,6 +614,47 @@ body {
   padding: 0;
 }
 
+/* Dashboard Checklist Styles */
+.dashboard-checklist {
+  margin-bottom: 2rem;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.dashboard-checklist .frigade-checklist {
+  padding: 0;
+}
+
+/* Override default Frigade checklist styling for better dashboard integration */
+.dashboard-checklist [data-frigade-checklist] {
+  background: white;
+  border: none;
+  border-radius: 0.75rem;
+}
+
+.dashboard-checklist [data-frigade-checklist-header] {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+}
+
+.dashboard-checklist [data-frigade-checklist-content] {
+  padding: 1rem 1.5rem;
+}
+
+.dashboard-checklist [data-frigade-checklist-item] {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.dashboard-checklist [data-frigade-checklist-item]:last-child {
+  border-bottom: none;
+}
+
 .page-header {
   margin-bottom: 2rem;
 }
