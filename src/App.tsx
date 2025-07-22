@@ -11,8 +11,10 @@ import Settings from './components/Settings';
 import Help from './components/Help';
 import UserflowDemo from './components/UserflowDemo';
 import FrigadeDemo from './components/FrigadeDemo';
+import ChameleonDemo from './components/ChameleonDemo';
 import DashboardLayout from './components/DashboardLayout';
 import { initUserflow } from './utils/userflow';
+import { initChameleon } from './utils/chameleon';
 import { getCurrentFakeUser } from './utils/userGenerator';
 import './App.css';
 
@@ -22,6 +24,9 @@ function App() {
   useEffect(() => {
     // Initialize Userflow when the app starts
     initUserflow();
+    
+    // Initialize Chameleon
+    initChameleon();
   }, []);
 
   return (
@@ -43,6 +48,7 @@ function App() {
               <Route path="help" element={<Help />} />
               <Route path="userflow" element={<UserflowDemo />} />
               <Route path="frigade" element={<FrigadeDemo />} />
+              <Route path="chameleon" element={<ChameleonDemo />} />
             </Route>
           </Routes>
         </div>

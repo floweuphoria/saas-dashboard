@@ -12,7 +12,8 @@ import {
   HelpCircle,
   LogOut,
   Zap,
-  Rocket
+  Rocket,
+  Eye
 } from 'lucide-react';
 
 const DashboardLayout: React.FC = () => {
@@ -26,6 +27,7 @@ const DashboardLayout: React.FC = () => {
     { icon: Settings, label: 'Settings', path: '/dashboard/settings', active: location.pathname === '/dashboard/settings' },
     { icon: Zap, label: 'Userflow Demo', path: '/dashboard/userflow', active: location.pathname === '/dashboard/userflow' },
     { icon: Rocket, label: 'Frigade Demo', path: '/dashboard/frigade', active: location.pathname === '/dashboard/frigade' },
+    { icon: Eye, label: 'Chameleon Demo', path: '/dashboard/chameleon', active: location.pathname === '/dashboard/chameleon' },
     { icon: HelpCircle, label: 'Help', path: '/dashboard/help', active: location.pathname === '/dashboard/help' },
   ];
 
