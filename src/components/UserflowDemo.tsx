@@ -18,15 +18,25 @@ const UserflowDemo: React.FC = () => {
   };
 
   const handleIdentifyUser = () => {
-    // Example user identification
-    identifyUser('demo-user-123', {
-      name: 'John Doe',
-      email: 'john.doe@example.com',
+    // Generate new fake user data
+    const firstNames = ['Alex', 'Jordan', 'Casey', 'Riley', 'Morgan', 'Taylor', 'Jamie', 'Avery'];
+    const lastNames = ['Thompson', 'Anderson', 'Wilson', 'Taylor', 'Moore', 'Jackson', 'White', 'Harris'];
+    
+    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+    const userId = `demo_user_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+    const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@demo.com`;
+    
+    identifyUser(userId, {
+      name: `${firstName} ${lastName}`,
+      email: email,
       plan: 'Pro',
-      signupDate: new Date().toISOString(),
-      role: 'Admin'
+      role: 'Demo User',
+      signed_up_at: new Date().toISOString()
     });
-    trackEvent('user_identified', { userId: 'demo-user-123' });
+    
+    trackEvent('manual_user_identification', { userId });
+    alert(`New user identified: ${firstName} ${lastName} (${email})`);
   };
 
   return (
