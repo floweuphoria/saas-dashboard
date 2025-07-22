@@ -1,5 +1,5 @@
 import userflow from 'userflow.js';
-import { getCurrentFakeUser } from './userGenerator';
+import { getUserData, getOrCreateUserData } from './userStorage';
 
 // Userflow configuration
 const USERFLOW_TOKEN = process.env.REACT_APP_USERFLOW_TOKEN || 'ct_us1_cwtddq2uu5hzpgzcipd67ti3hi';
@@ -9,17 +9,22 @@ export const initUserflow = () => {
     // Initialize Userflow
     userflow.init(USERFLOW_TOKEN);
     
-    // Get the shared fake user data
-    const fakeUser = getCurrentFakeUser();
+    // Get the stored user data
+    const userData = getOrCreateUserData();
     
-    // Identify the fake user
-    userflow.identify(fakeUser.userId, {
-      name: fakeUser.name,
-      email: fakeUser.email,
-      signed_up_at: fakeUser.signed_up_at
+    // Create a consistent user ID from email
+    const userId = `user_${userData.email.replace(/[^a-zA-Z0-9]/g, '_')}`;
+    
+    // Identify the user
+    userflow.identify(userId, {
+      name: userData.email.split('@')[0],
+      email: userData.email,
+      sdk: userData.sdk,
+      useCase: userData.useCase,
+      signed_up_at: new Date().toISOString()
     });
     
-    console.log('Userflow initialized successfully with fake user:', fakeUser);
+    console.log('Userflow initialized successfully with stored user:', userData);
   }
 };
 

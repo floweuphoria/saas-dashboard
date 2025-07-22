@@ -1,13 +1,89 @@
-import React from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import {
   ExternalLink,
   Clock,
   Monitor,
   ChevronDown,
   Settings2,
+  LogOut,
+  User,
+  Edit,
+  Shuffle,
 } from 'lucide-react'
+import { getUserData, generateNewRandomUser } from '../utils/userStorage'
+import { syncUserWithFrigade } from '../utils/frigadeApi'
+import segment from '../utils/segment'
+import { ProfileUpdateModal } from './ProfileUpdateModal'
 
-export const NewHeader: React.FC = () => {
+interface NewHeaderProps {
+  onLogout: () => void
+}
+
+export const NewHeader: React.FC<NewHeaderProps> = ({ onLogout }) => {
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [profileModalOpen, setProfileModalOpen] = useState(false)
+  const [userData, setUserData] = useState(getUserData())
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
+  const getInitials = (email: string) => {
+    return email.charAt(0).toUpperCase()
+  }
+
+  const handleLogout = () => {
+    onLogout()
+    setDropdownOpen(false)
+  }
+
+  const handleOpenProfileModal = () => {
+    setProfileModalOpen(true)
+    setDropdownOpen(false)
+  }
+
+  const handleProfileUpdate = () => {
+    // Refresh user data after update
+    setUserData(getUserData())
+  }
+
+  const handleRandomUser = async () => {
+    try {
+      // Generate new random user
+      const newUser = generateNewRandomUser()
+      
+      // Update local state
+      setUserData(newUser)
+      setDropdownOpen(false)
+      
+      // Sync with Frigade
+      await syncUserWithFrigade(newUser)
+      
+      // Track the random user generation
+      segment.track('Random User Generated', {
+        email: newUser.email,
+        sdk: newUser.sdk,
+        useCase: newUser.useCase,
+        timestamp: new Date().toISOString()
+      })
+      
+      // Force page reload to reinitialize all integrations with new user
+      window.location.reload()
+    } catch (error) {
+      console.error('Failed to generate random user:', error)
+    }
+  }
+
   return (
     <header className="border-b border-gray-200">
       <div className="flex items-center px-4 h-14">
@@ -46,11 +122,67 @@ export const NewHeader: React.FC = () => {
           <button className="p-2 border border-gray-200 rounded">
             <Settings2 size={16} />
           </button>
-          <button className="p-2 border border-gray-200 rounded bg-blue-600 text-white">
-            <span className="font-medium">M</span>
-          </button>
+          <div className="relative" ref={dropdownRef}>
+            <button 
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="p-2 border border-gray-200 rounded bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+            >
+              <span className="font-medium">
+                {userData ? getInitials(userData.email) : 'M'}
+              </span>
+            </button>
+            
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg border border-gray-200 py-1 z-50">
+                <div className="px-4 py-2 border-b border-gray-100">
+                  <div className="flex items-center">
+                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium mr-3">
+                      {userData ? getInitials(userData.email) : 'M'}
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-gray-900">
+                        {userData?.email || 'user@example.com'}
+                      </div>
+                      {userData && (
+                        <div className="text-xs text-gray-500">
+                          {userData.sdk.charAt(0).toUpperCase() + userData.sdk.slice(1)} • {userData.useCase.replace('-', ' ')}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onClick={handleOpenProfileModal}
+                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                >
+                  <Edit size={16} className="mr-2" />
+                  Update Profile
+                </button>
+                <button
+                  onClick={handleRandomUser}
+                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                >
+                  <Shuffle size={16} className="mr-2" />
+                  Random User
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                >
+                  <LogOut size={16} className="mr-2" />
+                  Sign out
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
+      
+      <ProfileUpdateModal
+        isOpen={profileModalOpen}
+        onClose={() => setProfileModalOpen(false)}
+        onProfileUpdate={handleProfileUpdate}
+      />
     </header>
   )
 }

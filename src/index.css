@@ -3,3 +3,75 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 /* DO NOT DELETE THESE TAILWIND IMPORTS, OTHERWISE THE STYLING WILL NOT RENDER AT ALL */
+
+/* Frigade Card CSS Overrides - Got Questions Card */
+.frigade-got-questions-card [data-fr-card],
+.frigade-got-questions-card .frigade-card,
+.frigade-got-questions-card > div {
+  background-color: #faf5ff !important; /* bg-purple-50 */
+  border: 1px solid #c4b5fd !important; /* border-purple-200 */
+  border-radius: 8px !important;
+  padding: 16px !important;
+}
+
+.frigade-got-questions-card h1,
+.frigade-got-questions-card h2,
+.frigade-got-questions-card h3,
+.frigade-got-questions-card [data-fr-title],
+.frigade-got-questions-card .frigade-title {
+  font-weight: 500 !important;
+  color: #111827 !important; /* text-gray-900 */
+  margin-bottom: 8px !important;
+  font-size: 16px !important;
+  position: relative !important;
+}
+
+.frigade-got-questions-card p,
+.frigade-got-questions-card [data-fr-body],
+.frigade-got-questions-card .frigade-body {
+  font-size: 14px !important;
+  color: #4b5563 !important; /* text-gray-600 */
+  margin-bottom: 12px !important;
+}
+
+.frigade-got-questions-card button,
+.frigade-got-questions-card a,
+.frigade-got-questions-card [data-fr-button] {
+  background: none !important;
+  border: none !important;
+  color: #2563eb !important; /* text-blue-600 */
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  padding: 0 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+.frigade-got-questions-card button:hover,
+.frigade-got-questions-card a:hover,
+.frigade-got-questions-card [data-fr-button]:hover {
+  color: #1d4ed8 !important; /* text-blue-800 */
+  text-decoration: underline !important;
+}
+
+/* Style icons to match original design */
+.frigade-got-questions-card svg {
+  color: #8b5cf6 !important; /* purple-500 to match the icon color */
+  width: 24px !important;
+  height: 24px !important;
+  margin-bottom: 12px !important;
+}
+
+/* Keep dismiss button visible and properly styled */
+.frigade-got-questions-card [data-fr-dismiss] svg,
+.frigade-got-questions-card .frigade-dismiss svg,
+.frigade-got-questions-card button[aria-label*="dismiss"] svg,
+.frigade-got-questions-card button[aria-label*="close"] svg {
+  color: #6b7280 !important; /* gray-500 */
+  width: 20px !important;
+  height: 20px !important;
+  margin-bottom: 0 !important;
+  position: absolute !important;
+  top: 12px !important;
+  right: 12px !important;
+}

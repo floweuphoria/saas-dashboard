@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {
   RefreshCw,
@@ -9,8 +9,12 @@ import {
   ArrowLeft,
   ArrowRight,
 } from 'lucide-react'
+import { trackPageView } from '../utils/segment'
 
 export const NewWorkflowDashboard: React.FC = () => {
+  useEffect(() => {
+    trackPageView('Dashboard');
+  }, []);
   return (
     <div className="flex-1 overflow-auto p-6">
       <div className="flex justify-between items-center mb-4">
