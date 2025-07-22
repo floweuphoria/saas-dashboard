@@ -1707,6 +1707,20 @@ input:checked + .toggle-slider:before {
   content: "Frigade component will render here";
 }
 
+.collection-wrapper {
+  min-height: 200px;
+  background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
+  border: 2px dashed #667eea;
+}
+
+.collection-wrapper:empty::after {
+  content: "Frigade Collection components will render here based on your dashboard configuration";
+}
+
+.collection-demo {
+  margin-bottom: 2rem;
+}
+
 .hooks-info {
   background-color: #f8fafc;
   padding: 1rem;

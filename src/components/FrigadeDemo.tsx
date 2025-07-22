@@ -38,7 +38,20 @@ const FrigadeDemo: React.FC = () => {
       </div>
 
       <div className="demo-section">
-        <h3>Frigade Components</h3>
+        <h3>🎯 Frigade Collection (No-Code Components)</h3>
+        <div className="collection-demo">
+          <div className="component-demo">
+            <h4><Zap size={20} /> Your Frigade Collection</h4>
+            <p>No-code components from your Frigade dashboard</p>
+            <div className="component-wrapper collection-wrapper">
+              <Frigade.Collection collectionId="collection_YlC44X2h" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="demo-section">
+        <h3>🔧 Individual Frigade Flows</h3>
         <div className="frigade-components">
           
           {/* Frigade Flow */}
@@ -92,15 +105,22 @@ const FrigadeDemo: React.FC = () => {
           <div className="note-item">
             <HelpCircle size={20} />
             <div>
-              <strong>Create Flows:</strong>
-              <p>Design your flows in the Frigade dashboard and update flow IDs in this component</p>
+              <strong>Collection (No-Code):</strong>
+              <p>Using Collection ID: collection_YlC44X2h - All components designed in Frigade dashboard</p>
+            </div>
+          </div>
+          <div className="note-item">
+            <HelpCircle size={20} />
+            <div>
+              <strong>Individual Flows:</strong>
+              <p>Create specific flows in dashboard and reference by flowId</p>
             </div>
           </div>
           <div className="note-item">
             <HelpCircle size={20} />
             <div>
               <strong>API Key:</strong>
-              <p>Using your public API key: api_public_EiAi1zT1mFphX4ss8gcJBIq8xVIzQRcxQ2Toi9GB3Hp2JVE8qBolQamgwl0fWPeF</p>
+              <p>api_public_EiAi1zT1mFphX4ss8gcJBIq8xVIzQRcxQ2Toi9GB3Hp2JVE8qBolQamgwl0fWPeF</p>
             </div>
           </div>
         </div>
