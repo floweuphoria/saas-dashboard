@@ -92,6 +92,13 @@ const ChameleonDemo: React.FC = () => {
               <p>Email, name, signup date, plan type, and company are automatically synced</p>
             </div>
           </div>
+          <div className="note-item">
+            <HelpCircle size={20} />
+            <div>
+              <strong>Security (uid_hash):</strong>
+              <p>Chameleon requires a server-generated uid_hash for user verification. Currently using mock hash for demo - implement proper server-side hashing in production.</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -114,12 +121,22 @@ const ChameleonDemo: React.FC = () => {
           <pre><code>{`// Install Chameleon
 npm install --save @chamaeleonidae/chmln
 
+// Server-side uid_hash generation (Node.js)
+const crypto = require('crypto');
+const secret = process.env.CHAMELEON_VERIFICATION_SECRET;
+const now = Math.floor(Date.now() / 1000);
+const uid_hash = [
+  crypto.createHmac('sha256', secret).update(\`\${uid}-\${now}\`).digest('hex'), 
+  now
+].join('-');
+
 // Initialize in your app
 const chameleon = require('@chamaeleonidae/chmln');
 chameleon.init('YOUR_API_KEY', { fastUrl: 'https://fast.chameleon.io/' });
 
-// Identify users
+// Identify users with uid_hash
 chameleon.identify(userId, {
+  uid_hash: uid_hash, // Required for data verification
   email: user.email,
   name: user.name,
   plan: 'Free Plan'
