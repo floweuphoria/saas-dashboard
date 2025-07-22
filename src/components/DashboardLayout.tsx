@@ -10,7 +10,8 @@ import {
   Settings,
   HelpCircle,
   LogOut,
-  Zap
+  Zap,
+  Rocket
 } from 'lucide-react';
 
 const DashboardLayout: React.FC = () => {
@@ -23,6 +24,7 @@ const DashboardLayout: React.FC = () => {
     { icon: Users, label: 'Users', path: '/dashboard/users', active: location.pathname === '/dashboard/users' },
     { icon: Settings, label: 'Settings', path: '/dashboard/settings', active: location.pathname === '/dashboard/settings' },
     { icon: Zap, label: 'Userflow Demo', path: '/dashboard/userflow', active: location.pathname === '/dashboard/userflow' },
+    { icon: Rocket, label: 'Frigade Demo', path: '/dashboard/frigade', active: location.pathname === '/dashboard/frigade' },
     { icon: HelpCircle, label: 'Help', path: '/dashboard/help', active: location.pathname === '/dashboard/help' },
   ];
 
