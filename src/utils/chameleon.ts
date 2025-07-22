@@ -20,18 +20,18 @@ export const initChameleon = () => {
   // Get the current fake user (same as used for Userflow and Frigade)
   const fakeUser = getCurrentFakeUser();
 
-  // Generate uid_hash for user verification
-  const uid_hash = generateUidHash(fakeUser.userId);
-
-  // Identify user in Chameleon with uid_hash
+  // Identify user in Chameleon using proper format
+  console.log('Identifying user in Chameleon:', fakeUser.userId, fakeUser.email);
+  
   chameleon.identify(fakeUser.userId, {
-    uid_hash: uid_hash,
-    email: fakeUser.email,
-    name: fakeUser.name,
-    // Additional properties you can add:
-    signup_date: fakeUser.signed_up_at,
-    plan: 'Free Plan',
-    company: 'DataFlow Pro'
+    email: fakeUser.email,                    // RECOMMENDED, email is used as the key to map user data for integrations
+    name: fakeUser.name,                      // RECOMMENDED, name can be used to greet and/or personalize content
+    created: fakeUser.signed_up_at,           // RECOMMENDED, must be ISO8601 or unix timestamp format
+    role: 'Free User',                        // OPTIONAL, properties such as 'role', 'admin', 'membership', etc.
+    logins: Math.floor(Math.random() * 50),   // OPTIONAL, data about user engagement (e.g. 39)
+    project: 'saas-dashboard',                // OPTIONAL, any other unique data that might appear in any page URLs
+    plan: 'Free Plan',                        // Custom property for plan type
+    company: 'DataFlow Pro'                   // Custom property for company
   });
 
   console.log('Chameleon initialized for user:', fakeUser.userId);
