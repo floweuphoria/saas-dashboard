@@ -471,6 +471,125 @@ body {
   border-top: 1px solid #374151;
 }
 
+.sidebar-card-section {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.plan-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  text-align: center;
+}
+
+.plan-text {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.progress-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 0;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+  display: block;
+  overflow: hidden;
+}
+
+.progress-card:hover {
+  background: #f9fafb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.frigade-progress-wrapper {
+  width: 100%;
+}
+
+/* Override Frigade ProgressBadge styles to match design */
+.frigade-progress-wrapper [data-frigade-progress-badge] {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 1rem !important;
+  width: 100% !important;
+  box-shadow: none !important;
+}
+
+.frigade-progress-wrapper [data-frigade-progress-badge] .frigade-progress-title {
+  font-weight: 600 !important;
+  color: #111827 !important;
+  font-size: 0.9rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.frigade-progress-wrapper [data-frigade-progress-badge] .frigade-progress-bar {
+  height: 0.375rem !important;
+  background: #e5e7eb !important;
+  border-radius: 0.1875rem !important;
+  overflow: hidden !important;
+}
+
+.frigade-progress-wrapper [data-frigade-progress-badge] .frigade-progress-fill {
+  background: #3b82f6 !important;
+  border-radius: 0.1875rem !important;
+  transition: width 0.3s ease !important;
+}
+
+.frigade-progress-wrapper [data-frigade-progress-badge] .frigade-progress-text {
+  font-weight: 600 !important;
+  color: #111827 !important;
+  font-size: 0.875rem !important;
+}
+
+.user-profile-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-avatar-circle {
+  width: 2rem;
+  height: 2rem;
+  background: #f3f4f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-initials {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.75rem;
+}
+
+.user-name {
+  flex: 1;
+  font-weight: 500;
+  color: #111827;
+  font-size: 0.875rem;
+}
+
+.user-menu-dots {
+  color: #9ca3af;
+  font-size: 1rem;
+  transform: rotate(45deg);
+}
+
 .sidebar-overlay {
   position: fixed;
   top: 0;

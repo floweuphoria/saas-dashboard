@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
+import * as Frigade from '@frigade/react';
 import { 
   BarChart3, 
   Menu,
@@ -59,6 +60,25 @@ const DashboardLayout: React.FC = () => {
         </nav>
         
         <div className="sidebar-footer">
+          <div className="sidebar-card-section">
+            <div className="plan-card">
+              <span className="plan-text">Free Plan</span>
+            </div>
+            
+            <Link to="/dashboard" className="progress-card clickable-progress">
+              <div className="frigade-progress-wrapper">
+                <Frigade.ProgressBadge flowId="flow_5hqQEJCC" />
+              </div>
+            </Link>
+            
+            <div className="user-profile-card">
+              <div className="user-avatar-circle">
+                <span className="user-initials">JD</span>
+              </div>
+              <span className="user-name">John Doe</span>
+              <span className="user-menu-dots">⋄</span>
+            </div>
+          </div>
           <Link to="/login" className="sidebar-item">
             <LogOut size={20} />
             <span>Logout</span>

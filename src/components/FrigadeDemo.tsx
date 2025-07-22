@@ -47,6 +47,32 @@ const FrigadeDemo: React.FC = () => {
               <Frigade.Collection collectionId="collection_YlC44X2h" />
             </div>
           </div>
+          
+          <div className="component-demo">
+            <h4><Zap size={20} /> Secondary Collection</h4>
+            <p>Additional collection: collection_4jIPvkZt</p>
+            <div className="component-wrapper collection-wrapper">
+              <Frigade.Collection collectionId="collection_4jIPvkZt" />
+            </div>
+          </div>
+        </div>
+        
+        <div className="collection-demo">
+          <div className="component-demo">
+            <h4><Zap size={20} /> Frigade Announcement</h4>
+            <p>Inline announcement component (appears if configured in dashboard)</p>
+            <div className="component-wrapper collection-wrapper">
+              <Frigade.Announcement flowId="flow_announcement_demo" />
+            </div>
+          </div>
+          
+          <div className="component-demo">
+            <h4><Zap size={20} /> Frigade Banner</h4>
+            <p>Banner component for promotions/announcements</p>
+            <div className="component-wrapper collection-wrapper">
+              <Frigade.Banner flowId="flow_banner_demo" />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -118,8 +144,9 @@ const FrigadeDemo: React.FC = () => {
           <div className="note-item">
             <HelpCircle size={20} />
             <div>
-              <strong>Collection (No-Code):</strong>
-              <p>Using Collection ID: collection_YlC44X2h - All components designed in Frigade dashboard</p>
+              <strong>Collections (No-Code):</strong>
+              <p>Collection IDs: collection_YlC44X2h & collection_4jIPvkZt</p>
+              <p><strong>Note:</strong> Collections will only display content if flows are configured and active in your Frigade dashboard. Create flows in the dashboard and assign them to collections to see content.</p>
             </div>
           </div>
           <div className="note-item">
