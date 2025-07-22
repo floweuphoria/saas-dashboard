@@ -4,6 +4,8 @@ import * as Frigade from '@frigade/react';
 import { NewSidebar } from './components/NewSidebar';
 import { NewHeader } from './components/NewHeader';
 import { NewWorkflowDashboard } from './components/NewWorkflowDashboard';
+import { WorkflowDetail } from './components/WorkflowDetail';
+import { Welcome } from './components/Welcome';
 import LandingPage from './components/LandingPage';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -35,6 +37,24 @@ function App() {
               <div className="flex flex-col flex-1 overflow-hidden">
                 <NewHeader />
                 <NewWorkflowDashboard />
+              </div>
+            </div>
+          } />
+          <Route path="/workflow/:workflowId" element={
+            <div className="flex h-screen w-full bg-white">
+              <NewSidebar />
+              <div className="flex flex-col flex-1 overflow-hidden">
+                <NewHeader />
+                <WorkflowDetail />
+              </div>
+            </div>
+          } />
+          <Route path="/welcome" element={
+            <div className="flex h-screen w-full bg-white">
+              <NewSidebar />
+              <div className="flex flex-col flex-1 overflow-hidden">
+                <NewHeader />
+                <Welcome />
               </div>
             </div>
           } />

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import {
   RefreshCw,
   Filter,
@@ -74,9 +75,12 @@ export const NewWorkflowDashboard: React.FC = () => {
                 </div>
               </td>
               <td className="px-4 py-3">
-                <span className="text-sm text-blue-600 hover:underline cursor-pointer">
+                <Link 
+                  to="/workflow/pay-invoice-701" 
+                  className="text-sm text-blue-600 hover:underline cursor-pointer"
+                >
                   pay-invoice-701
-                </span>
+                </Link>
               </td>
               <td className="px-4 py-3">
                 <span className="text-sm text-blue-600 hover:underline cursor-pointer">
