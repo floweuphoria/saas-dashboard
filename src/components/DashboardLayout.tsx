@@ -21,14 +21,21 @@ const DashboardLayout: React.FC = () => {
   const location = useLocation();
 
   const sidebarItems = [
-    { icon: Home, label: 'Dashboard', path: '/dashboard', active: location.pathname === '/dashboard' },
-    { icon: LineChart, label: 'Analytics', path: '/dashboard/analytics', active: location.pathname === '/dashboard/analytics' },
-    { icon: Users, label: 'Users', path: '/dashboard/users', active: location.pathname === '/dashboard/users' },
+    { icon: Home, label: 'Workflows', path: '/dashboard', active: location.pathname === '/dashboard' },
+    { icon: LineChart, label: 'Schedules', path: '/dashboard/schedules', active: location.pathname === '/dashboard/schedules' },
+    { icon: Users, label: 'Batch', path: '/dashboard/batch', active: location.pathname === '/dashboard/batch' },
+    { icon: Zap, label: 'Deployments', path: '/dashboard/deployments', active: location.pathname === '/dashboard/deployments' },
+    { icon: Rocket, label: 'Namespaces', path: '/dashboard/namespaces', active: location.pathname === '/dashboard/namespaces' },
+    { icon: Eye, label: 'Nexus', path: '/dashboard/nexus', active: location.pathname === '/dashboard/nexus' },
+  ];
+
+  const bottomSidebarItems = [
+    { icon: LineChart, label: 'Usage', path: '/dashboard/usage', active: location.pathname === '/dashboard/usage' },
+    { icon: Settings, label: 'Billing', path: '/dashboard/billing', active: location.pathname === '/dashboard/billing' },
     { icon: Settings, label: 'Settings', path: '/dashboard/settings', active: location.pathname === '/dashboard/settings' },
-    { icon: Zap, label: 'Userflow Demo', path: '/dashboard/userflow', active: location.pathname === '/dashboard/userflow' },
-    { icon: Rocket, label: 'Frigade Demo', path: '/dashboard/frigade', active: location.pathname === '/dashboard/frigade' },
-    { icon: Eye, label: 'Chameleon Demo', path: '/dashboard/chameleon', active: location.pathname === '/dashboard/chameleon' },
-    { icon: HelpCircle, label: 'Help', path: '/dashboard/help', active: location.pathname === '/dashboard/help' },
+    { icon: HelpCircle, label: 'Support', path: '/dashboard/support', active: location.pathname === '/dashboard/support' },
+    { icon: HelpCircle, label: 'Docs', path: '/dashboard/docs', active: location.pathname === '/dashboard/docs' },
+    { icon: HelpCircle, label: 'Welcome', path: '/dashboard/welcome', active: location.pathname === '/dashboard/welcome' },
   ];
 
   return (
@@ -49,6 +56,20 @@ const DashboardLayout: React.FC = () => {
         
         <nav className="sidebar-nav">
           {sidebarItems.map((item, index) => (
+            <Link
+              key={index}
+              to={item.path}
+              className={`sidebar-item ${item.active ? 'active' : ''}`}
+              onClick={() => setSidebarOpen(false)}
+            >
+              <item.icon size={20} />
+              <span>{item.label}</span>
+            </Link>
+          ))}
+        </nav>
+        
+        <nav className="sidebar-nav-bottom">
+          {bottomSidebarItems.map((item, index) => (
             <Link
               key={index}
               to={item.path}

@@ -1,22 +1,15 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import * as Frigade from '@frigade/react';
+import { NewSidebar } from './components/NewSidebar';
+import { NewHeader } from './components/NewHeader';
+import { NewWorkflowDashboard } from './components/NewWorkflowDashboard';
 import LandingPage from './components/LandingPage';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import Dashboard from './components/Dashboard';
-import Analytics from './components/Analytics';
-import Users from './components/Users';
-import Settings from './components/Settings';
-import Help from './components/Help';
-import UserflowDemo from './components/UserflowDemo';
-import FrigadeDemo from './components/FrigadeDemo';
-import ChameleonDemo from './components/ChameleonDemo';
-import DashboardLayout from './components/DashboardLayout';
 import { initUserflow } from './utils/userflow';
 import { initChameleon } from './utils/chameleon';
 import { getCurrentFakeUser } from './utils/userGenerator';
-import './App.css';
 
 function App() {
   const fakeUser = getCurrentFakeUser(); // Get consistent fake user for both Userflow and Frigade
@@ -35,23 +28,19 @@ function App() {
       userId={fakeUser.userId}
     >
       <Router>
-        <div className="App">
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/dashboard" element={<DashboardLayout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="analytics" element={<Analytics />} />
-              <Route path="users" element={<Users />} />
-              <Route path="settings" element={<Settings />} />
-              <Route path="help" element={<Help />} />
-              <Route path="userflow" element={<UserflowDemo />} />
-              <Route path="frigade" element={<FrigadeDemo />} />
-              <Route path="chameleon" element={<ChameleonDemo />} />
-            </Route>
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={
+            <div className="flex h-screen w-full bg-white">
+              <NewSidebar />
+              <div className="flex flex-col flex-1 overflow-hidden">
+                <NewHeader />
+                <NewWorkflowDashboard />
+              </div>
+            </div>
+          } />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
       </Router>
     </Frigade.Provider>
   );
