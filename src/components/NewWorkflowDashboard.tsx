@@ -46,7 +46,7 @@ export const NewWorkflowDashboard: React.FC = () => {
         <div className="flex items-center">
           <h1 className="text-2xl font-medium mr-2">
             {viewState === 'empty' ? '0 Workflows' : 
-             viewState === 'highVolume' ? '1,966,085 Workflows' : '1 Workflow'}
+             viewState === 'highVolume' ? '1,966,085 Workflows' : '2 Workflows'}
           </h1>
           <button className="text-gray-500 hover:text-gray-700">
             <RefreshCw size={18} />
@@ -76,7 +76,7 @@ export const NewWorkflowDashboard: React.FC = () => {
           </div>
         ) : (
           <span className="inline-block bg-green-100 text-green-800 text-sm px-2 py-0.5 rounded">
-            1 Completed
+            2 Completed
           </span>
         )}
       </div>
@@ -239,38 +239,72 @@ export const NewWorkflowDashboard: React.FC = () => {
                 </tr>
               </>
             ) : (
-              <tr className="border-b border-gray-200 hover:bg-gray-50">
-                <td className="px-4 py-3">
-                  <input type="checkbox" className="rounded" />
-                </td>
-                <td className="px-4 py-3">
-                  <div className="flex items-center">
-                    <Zap size={16} className="mr-1 text-green-600" />
-                    <span className="text-sm text-green-600">Completed</span>
-                  </div>
-                </td>
-                <td className="px-4 py-3">
-                  <Link 
-                    to="/workflow/pay-invoice-701" 
-                    className="text-sm text-blue-600 hover:underline cursor-pointer"
-                  >
-                    pay-invoice-701
-                  </Link>
-                </td>
-                <td className="px-4 py-3">
-                  <span className="text-sm text-blue-600 hover:underline cursor-pointer">
-                    01981fcf-3db7-7464-a333-9f7232651b60
-                  </span>
-                </td>
-                <td className="px-4 py-3">
-                  <span className="text-sm text-blue-600 hover:underline cursor-pointer">
-                    MoneyTransfer
-                  </span>
-                </td>
-                <td className="px-4 py-3">
-                  <span className="text-sm">2025-07-18 UTC</span>
-                </td>
-              </tr>
+              <>
+                <tr className="border-b border-gray-200 hover:bg-gray-50">
+                  <td className="px-4 py-3">
+                    <input type="checkbox" className="rounded" />
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center">
+                      <Zap size={16} className="mr-1 text-green-600" />
+                      <span className="text-sm text-green-600">Completed</span>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3">
+                    <Link 
+                      to="/workflow/pay-invoice-701" 
+                      className="text-sm text-blue-600 hover:underline cursor-pointer"
+                    >
+                      pay-invoice-701 (uf)
+                    </Link>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className="text-sm text-blue-600 hover:underline cursor-pointer">
+                      01981fcf-3db7-7464-a333-9f7232651b60
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className="text-sm text-blue-600 hover:underline cursor-pointer">
+                      MoneyTransfer
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className="text-sm">2025-07-18 UTC</span>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-200 hover:bg-gray-50">
+                  <td className="px-4 py-3">
+                    <input type="checkbox" className="rounded" />
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center">
+                      <Zap size={16} className="mr-1 text-green-600" />
+                      <span className="text-sm text-green-600">Completed</span>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3">
+                    <Link 
+                      to="/workflow/pay-invoice-702" 
+                      className="text-sm text-blue-600 hover:underline cursor-pointer"
+                    >
+                      pay-invoice-702 (fr)
+                    </Link>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className="text-sm text-blue-600 hover:underline cursor-pointer">
+                      02981fcf-4db8-8575-b444-8f8343762c71
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className="text-sm text-blue-600 hover:underline cursor-pointer">
+                      MoneyTransfer
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className="text-sm">2025-07-19 UTC</span>
+                  </td>
+                </tr>
+              </>
             )}
           </tbody>
         </table>
@@ -295,7 +329,7 @@ export const NewWorkflowDashboard: React.FC = () => {
               </button>
               <span className="text-sm">
                 {viewState === 'empty' ? '0-0 of 0' : 
-                 viewState === 'highVolume' ? '1-100 of 1,966,085' : '1-1 of 1'}
+                 viewState === 'highVolume' ? '1-100 of 1,966,085' : '1-2 of 2'}
               </span>
               <button className="p-1 hover:bg-gray-100 rounded">
                 <ArrowRight size={18} />

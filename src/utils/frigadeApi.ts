@@ -101,6 +101,10 @@ export const syncUserWithFrigade = async (userData: {
   useCase: string;
   signedUp: boolean;
 }) => {
+  // Temporarily disabled to prevent API errors
+  console.log('Frigade sync disabled to prevent API errors');
+  return;
+  
   const userId = userData.email; // Use email as consistent user ID
   const emailParts = userData.email.split('@');
   

@@ -20,7 +20,10 @@ export const Header: React.FC<HeaderProps> = ({ workflowId, status }) => {
             <span className="inline-block bg-green-100 text-green-800 text-sm px-2 py-0.5 rounded mr-3">
               {status}
             </span>
-            <h1 className="text-2xl font-medium">{workflowId}</h1>
+            <h1 className="text-2xl font-medium">
+              {workflowId === 'pay-invoice-701' ? 'pay-invoice-701 (uf)' : 
+               workflowId === 'pay-invoice-702' ? 'pay-invoice-702 (fr)' : workflowId}
+            </h1>
           </div>
         </div>
         <div className="flex items-center gap-2">

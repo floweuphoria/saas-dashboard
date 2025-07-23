@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import * as Frigade from '@frigade/react'
 import {
   Eye,
   Clock,
@@ -81,6 +82,27 @@ export const NewSidebar: React.FC = () => {
         <NavItem icon={<Home size={18} />} label="Welcome" to="/welcome" active={location.pathname === '/welcome'} />
       </nav>
       <div className="p-4 text-white text-center">
+        <div className="mb-3" style={{ fontSize: '0.75rem' }}>
+          <Link to="/welcome" className="block">
+            <Frigade.ProgressBadge 
+              flowId="flow_2rHXV1G1" 
+              title="Quickstart"
+              css={{
+                "--fr-color-neutral-background": "transparent",
+                "--fr-color-primary-background": "transparent",
+                "--fr-color-secondary-background": "transparent",
+                "backgroundColor": "transparent !important",
+                "border": "1px solid rgba(99, 102, 241, 0.3)",
+                "borderRadius": "6px",
+                "color": "rgb(199, 210, 254) !important",
+                "--fr-color-text": "rgb(199, 210, 254)",
+                "--fr-color-neutral-foreground": "rgb(199, 210, 254)",
+                "& *": { "color": "rgb(199, 210, 254) !important" },
+                "cursor": "pointer"
+              }}
+            />
+          </Link>
+        </div>
         <div className="border border-indigo-500/30 rounded p-3 mb-2">
           <div className="text-sm font-medium text-white">$4,383 credits</div>
           <div className="text-xs text-indigo-200">remain</div>

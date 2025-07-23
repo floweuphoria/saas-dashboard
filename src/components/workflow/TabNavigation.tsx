@@ -9,11 +9,15 @@ interface TabNavigationProps {
   tabs: Tab[]
   activeTab: string
   onTabChange: (tabName: string) => void
+  workflowId?: string
 }
 
-export const TabNavigation: React.FC<TabNavigationProps> = ({ tabs, activeTab, onTabChange }) => {
+export const TabNavigation: React.FC<TabNavigationProps> = ({ tabs, activeTab, onTabChange, workflowId }) => {
   return (
-    <div className="border-b border-gray-200 mb-6">
+    <div 
+      className="border-b border-gray-200 mb-6"
+      {...(workflowId === 'pay-invoice-702' && { id: 'tooltip-select-2' })}
+    >
       <nav className="-mb-px flex space-x-8">
         {tabs.map((tab) => (
           <button

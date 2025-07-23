@@ -13,11 +13,15 @@ interface WorkflowDetailsProps {
     billableActions: string
     sdk: string
   }
+  workflowId?: string
 }
 
-export const WorkflowDetails: React.FC<WorkflowDetailsProps> = ({ workflowData }) => {
+export const WorkflowDetails: React.FC<WorkflowDetailsProps> = ({ workflowData, workflowId }) => {
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4 mb-6">
+    <div 
+      className="bg-white border border-gray-200 rounded-lg p-4 mb-6"
+      {...(workflowId === 'pay-invoice-702' && { id: 'tooltip-select-1' })}
+    >
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-medium flex items-center">
           <span className="w-4 h-4 bg-indigo-600 rounded mr-2"></span>

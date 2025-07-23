@@ -65,7 +65,7 @@ export const Welcome: React.FC = () => {
         <div className="flex gap-6">
           {/* Main Content */}
           <div className="flex-1">
-            <h1 className="text-2xl font-bold text-gray-900 mb-8">Getting started with Temporal</h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-8">Getting Started</h1>
             
             <div className="space-y-6">
               <Frigade.Collection collectionId="collection_od1b24Rb" />

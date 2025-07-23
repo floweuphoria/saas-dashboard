@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import * as Frigade from '@frigade/react'
 import { Header } from './workflow/Header'
 import { WorkflowDetails } from './workflow/WorkflowDetails'
 import { TabNavigation } from './workflow/TabNavigation'
@@ -29,7 +30,17 @@ export const WorkflowDetail: React.FC = () => {
     { name: 'Metadata', count: null },
   ]
 
-  const workflowData = {
+  const workflowData = workflowId === 'pay-invoice-702' ? {
+    start: '2025-07-19 UTC 14:22:08.45',
+    end: '2025-07-19 UTC 14:22:41.92',
+    duration: '33s 470ms',
+    runId: '02981fcf-4db8-8575-b444-8f8343762c71',
+    workflowType: 'MoneyTransfer',
+    taskQueue: 'TRANSFER_MONEY_TASK_QUEUE',
+    historySize: '2698',
+    billableActions: '3',
+    sdk: 'Go 1.33.0'
+  } : {
     start: '2025-07-18 UTC 23:12:12.21',
     end: '2025-07-18 UTC 23:12:48.07',
     duration: '35s 856ms',
@@ -41,16 +52,72 @@ export const WorkflowDetail: React.FC = () => {
     sdk: 'Go 1.33.0'
   }
 
-  const inputData = `{
+  const inputData = workflowId === 'pay-invoice-702' ? `{
+  "SourceAccount": "92-380",
+  "TargetAccount": "67-245",
+  "Amount": 175,
+  "ReferenceID": "67890"
+}` : `{
   "SourceAccount": "85-150",
   "TargetAccount": "43-812",
   "Amount": 250,
   "ReferenceID": "12345"
 }`
 
-  const resultData = `"Transfer complete (transaction IDs: W1903885358, D8263501742)"`
+  const resultData = workflowId === 'pay-invoice-702' ? 
+    `"Transfer complete (transaction IDs: W1903885412, D8263501798)"` :
+    `"Transfer complete (transaction IDs: W1903885358, D8263501742)"`
 
-  const sampleEvents = [
+  const sampleEvents = workflowId === 'pay-invoice-702' ? [
+    {
+      id: 1,
+      eventType: 'WorkflowExecutionStarted',
+      timestamp: '2025-07-19 14:22:08.450 UTC',
+      details: 'Workflow execution started with input parameters'
+    },
+    {
+      id: 2,
+      eventType: 'ActivityTaskScheduled',
+      timestamp: '2025-07-19 14:22:08.555 UTC',
+      details: 'Withdraw activity scheduled for account 92-380'
+    },
+    {
+      id: 3,
+      eventType: 'ActivityTaskStarted',
+      timestamp: '2025-07-19 14:22:11.230 UTC',
+      details: 'Withdraw activity started'
+    },
+    {
+      id: 4,
+      eventType: 'ActivityTaskCompleted',
+      timestamp: '2025-07-19 14:22:25.180 UTC',
+      details: 'Withdraw completed successfully - Transaction ID: W1903885412'
+    },
+    {
+      id: 5,
+      eventType: 'ActivityTaskScheduled',
+      timestamp: '2025-07-19 14:22:25.225 UTC',
+      details: 'Deposit activity scheduled for account 67-245'
+    },
+    {
+      id: 6,
+      eventType: 'ActivityTaskStarted',
+      timestamp: '2025-07-19 14:22:27.100 UTC',
+      details: 'Deposit activity started'
+    },
+    {
+      id: 7,
+      eventType: 'ActivityTaskCompleted',
+      timestamp: '2025-07-19 14:22:41.895 UTC',
+      details: 'Deposit completed successfully - Transaction ID: D8263501798'
+    },
+    {
+      id: 8,
+      eventType: 'WorkflowExecutionCompleted',
+      timestamp: '2025-07-19 14:22:41.920 UTC',
+      details: 'Workflow execution completed successfully'
+    }
+  ] : [
     {
       id: 1,
       eventType: 'WorkflowExecutionStarted',
@@ -109,12 +176,13 @@ export const WorkflowDetail: React.FC = () => {
       />
       
       <div className="p-6">
-        <WorkflowDetails workflowData={workflowData} />
+        <WorkflowDetails workflowData={workflowData} workflowId={workflowId} />
         
         <TabNavigation 
           tabs={tabs}
           activeTab={activeTab}
           onTabChange={setActiveTab}
+          workflowId={workflowId}
         />
         
         <InputResultPanel 
@@ -126,6 +194,12 @@ export const WorkflowDetail: React.FC = () => {
         
         <EventTable events={sampleEvents} />
       </div>
+      
+      {workflowId === 'pay-invoice-702' && (
+        <Frigade.Tour
+          flowId="flow_finkx80Z" 
+        />
+      )}
     </div>
   )
 }
