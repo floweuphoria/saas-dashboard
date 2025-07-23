@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import * as Frigade from '@frigade/react'
 import {
   ExternalLink,
   Clock,
@@ -9,11 +10,14 @@ import {
   User,
   Edit,
   Shuffle,
+  Users,
+  X,
 } from 'lucide-react'
 import { getUserData, generateNewRandomUser } from '../utils/userStorage'
 import { syncUserWithFrigade } from '../utils/frigadeApi'
 import segment from '../utils/segment'
 import { ProfileUpdateModal } from './ProfileUpdateModal'
+import { InviteModal } from './InviteModal'
 
 interface NewHeaderProps {
   onLogout: () => void
@@ -22,6 +26,7 @@ interface NewHeaderProps {
 export const NewHeader: React.FC<NewHeaderProps> = ({ onLogout }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [profileModalOpen, setProfileModalOpen] = useState(false)
+  const [inviteModalOpen, setInviteModalOpen] = useState(false)
   const [userData, setUserData] = useState(getUserData())
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -87,7 +92,7 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ onLogout }) => {
   return (
     <header className="border-b border-gray-200">
       <div className="flex items-center px-4 h-14">
-        <div className="flex items-center border border-gray-200 rounded px-2 py-1 flex-1">
+        <div className="flex items-center border border-gray-200 rounded px-2 py-1 w-80">
           <span className="mr-2">
             <svg
               width="16"
@@ -110,7 +115,35 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ onLogout }) => {
             <ExternalLink size={16} />
           </span>
         </div>
+        <div className="flex-1"></div>
         <div className="flex items-center ml-4 gap-2">
+          <Frigade.Flow flowId="flow_E4E2crtW">
+            {({ flow }) => {
+              if (!flow || !flow.isVisible) {
+                return null;
+              }
+              
+              const inviteStep = flow.steps.get("invite-members");
+              
+              return (
+                <div className="flex items-center text-sm bg-indigo-600 text-white rounded px-3 py-2 hover:bg-indigo-700 transition-colors">
+                  <Users size={16} className="mr-2" />
+                  <button 
+                    onClick={() => setInviteModalOpen(true)}
+                    className="flex items-center"
+                  >
+                    <span>Invite Members</span>
+                  </button>
+                  <button 
+                    onClick={() => inviteStep?.complete()}
+                    className="ml-2 hover:bg-indigo-800 rounded p-0.5 transition-colors"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              );
+            }}
+          </Frigade.Flow>
           <button className="flex items-center text-sm border border-gray-200 rounded px-2 py-1">
             <Clock size={16} className="mr-1" />
             <span>UTC</span>
@@ -182,6 +215,11 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ onLogout }) => {
         isOpen={profileModalOpen}
         onClose={() => setProfileModalOpen(false)}
         onProfileUpdate={handleProfileUpdate}
+      />
+      
+      <InviteModal
+        isOpen={inviteModalOpen}
+        onClose={() => setInviteModalOpen(false)}
       />
     </header>
   )

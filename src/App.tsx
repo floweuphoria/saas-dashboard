@@ -6,6 +6,7 @@ import { NewHeader } from './components/NewHeader';
 import { NewWorkflowDashboard } from './components/NewWorkflowDashboard';
 import { WorkflowDetail } from './components/WorkflowDetail';
 import { Welcome } from './components/Welcome';
+import { Nexus } from './components/Nexus';
 import { SignupForm } from './components/SignupForm';
 import LandingPage from './components/LandingPage';
 import Login from './components/Login';
@@ -50,8 +51,8 @@ function App() {
     // Track signup event
     trackUserSignup(signupData);
     
-    // Force reload to use new user data
-    window.location.href = '/';
+    // Redirect to welcome page after signup
+    window.location.href = '/welcome';
   };
 
   const handleLogout = () => {
@@ -63,8 +64,8 @@ function App() {
     // Reset Segment session
     segment.reset();
     
-    // Force page reload to regenerate random user data
-    window.location.href = '/';
+    // Redirect to signup page
+    window.location.href = '/signup';
   };
 
   return (
@@ -99,6 +100,15 @@ function App() {
               <div className="flex flex-col flex-1 overflow-hidden">
                 <NewHeader onLogout={handleLogout} />
                 <Welcome />
+              </div>
+            </div>
+          } />
+          <Route path="/nexus" element={
+            <div className="flex h-screen w-full bg-white">
+              <NewSidebar />
+              <div className="flex flex-col flex-1 overflow-hidden">
+                <NewHeader onLogout={handleLogout} />
+                <Nexus />
               </div>
             </div>
           } />

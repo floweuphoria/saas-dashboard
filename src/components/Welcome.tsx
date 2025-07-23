@@ -69,6 +69,9 @@ export const Welcome: React.FC = () => {
             
             <div className="space-y-6">
               <Frigade.Collection collectionId="collection_od1b24Rb" />
+              <Frigade.Checklist.Collapsible
+                flowId="flow_2rHXV1G1" 
+              />
             </div>
           </div>
 

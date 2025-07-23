@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 interface SignupFormData {
@@ -11,6 +11,19 @@ interface SignupFormProps {
   onSignup: (data: SignupFormData) => void
 }
 
+const generateRandomEmail = () => {
+  const firstNames = ['alex', 'sarah', 'mike', 'emma', 'david', 'lisa', 'john', 'anna', 'chris', 'maria'];
+  const lastNames = ['smith', 'johnson', 'williams', 'jones', 'brown', 'davis', 'miller', 'wilson', 'moore', 'taylor'];
+  const domains = ['gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 'icloud.com'];
+  
+  const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+  const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+  const domain = domains[Math.floor(Math.random() * domains.length)];
+  const randomNum = Math.floor(Math.random() * 999) + 1;
+  
+  return `${firstName}.${lastName}${randomNum}@${domain}`;
+};
+
 export const SignupForm: React.FC<SignupFormProps> = ({ onSignup }) => {
   const [formData, setFormData] = useState<SignupFormData>({
     email: '',
@@ -19,6 +32,10 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSignup }) => {
   })
   const [errors, setErrors] = useState<Partial<SignupFormData>>({})
   const navigate = useNavigate()
+
+  useEffect(() => {
+    setFormData(prev => ({ ...prev, email: generateRandomEmail() }));
+  }, []);
 
   const sdkOptions = [
     { value: 'go', label: 'Go' },
@@ -51,7 +68,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSignup }) => {
 
     // Submit form
     onSignup(formData)
-    navigate('/')
+    navigate('/welcome')
   }
 
   const handleChange = (field: keyof SignupFormData, value: string) => {
