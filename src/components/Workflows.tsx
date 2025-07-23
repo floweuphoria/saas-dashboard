@@ -7,7 +7,8 @@ import {
   ChevronRight, 
   Play,
   CheckCircle,
-  RefreshCw
+  RefreshCw,
+  BarChart3
 } from 'lucide-react';
 
 interface WorkflowData {
@@ -20,7 +21,9 @@ interface WorkflowData {
 }
 
 const Workflows: React.FC = () => {
-  const [workflows] = useState<WorkflowData[]>([
+  const [isHighVolumeView, setIsHighVolumeView] = useState(false);
+  
+  const normalWorkflows: WorkflowData[] = [
     {
       id: '1',
       status: 'Completed',
@@ -45,8 +48,26 @@ const Workflows: React.FC = () => {
       type: 'DataSync',
       start: '2025-07-21 UTC'
     }
-  ]);
+  ];
 
+  const highVolumeWorkflows: WorkflowData[] = [
+    { id: '1', status: 'Running', workflowId: 'growth-canary', runId: '', type: '', start: '' },
+    { id: '2', status: 'Running', workflowId: 'foundation-canary/2025-07-23-00:30/TestFoundationSuite/FoundationCloudAPISuite/TestComponents/CloudAPINamespaceSu', runId: '', type: '', start: '' },
+    { id: '3', status: 'Running', workflowId: 'foundation-canary/2025-07-23-00:30/TestFoundationSuite/NamespaceSuite/s-ce005/TestUpdate', runId: '', type: '', start: '' },
+    { id: '4', status: 'Running', workflowId: 'saas-api-canary/2025-07-23-00:30/TestAllAPIs/AuthMethodSuite/TestAll', runId: '', type: '', start: '' },
+    { id: '5', status: 'Running', workflowId: 'saas-api-canary/2025-07-23-00:30/TestAllAPIs/RBACSuite/TestAllRBAC', runId: '', type: '', start: '' },
+    { id: '6', status: 'Running', workflowId: 'foundation-canary/2025-07-23-00:30/TestFoundationSuite/FoundationCloudAPISuite/TestComponents/CloudAPINamespaceSu', runId: '', type: '', start: '' },
+    { id: '7', status: 'Running', workflowId: 'foundation-canary/2025-07-23-00:30/TestFoundationSuite/FoundationCloudAPISuite/TestComponents', runId: '', type: '', start: '' },
+    { id: '8', status: 'Running', workflowId: 'foundation-canary/2025-07-23-00:30/TestFoundationSuite/FoundationCloudAPISuite', runId: '', type: '', start: '' },
+    { id: '9', status: 'Running', workflowId: 'foundation-canary/2025-07-23-00:30/TestFoundationSuite/AuditLogSuite/TestAuditLog', runId: '', type: '', start: '' },
+    { id: '10', status: 'Running', workflowId: 'foundation-canary/2025-07-23-00:30/TestFoundationSuite/NamespaceSuite/s-ce005', runId: '', type: '', start: '' },
+    { id: '11', status: 'Running', workflowId: 'saas-api-canary/2025-07-23-00:30/TestAllAPIs/AuthMethodSuite', runId: '', type: '', start: '' },
+    { id: '12', status: 'Running', workflowId: 'foundation-canary/2025-07-23-00:30/TestFoundationSuite/AuditLogSuite', runId: '', type: '', start: '' },
+    { id: '13', status: 'Running', workflowId: 'foundation-canary/2025-07-23-00:30/TestFoundationSuite', runId: '', type: '', start: '' },
+    { id: '14', status: 'Running', workflowId: 'foundation-canary/2025-07-23-00:30', runId: '', type: '', start: '' }
+  ];
+
+  const workflows = isHighVolumeView ? highVolumeWorkflows : normalWorkflows;
   const [currentPage] = useState(1);
   const [itemsPerPage] = useState(100);
 
@@ -82,15 +103,34 @@ const Workflows: React.FC = () => {
       {/* Header */}
       <div className="workflow-header">
         <div className="workflow-title-section">
-          <h1 className="workflow-title">1 Workflow</h1>
+          <h1 className="workflow-title">
+            {isHighVolumeView ? '1,966,085 Workflows' : '1 Workflow'}
+          </h1>
           <RefreshCw size={20} className="text-gray-500 ml-2" />
+          {isHighVolumeView && <span className="text-xs text-gray-500 ml-2">-8</span>}
           <div className="workflow-status">
-            <span className="status-badge completed">1 Completed</span>
+            {isHighVolumeView ? (
+              <>
+                <span className="status-badge bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-medium mr-2">23 Running</span>
+                <span className="text-xs text-gray-500 mr-2">-8</span>
+                <span className="status-badge bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs font-medium mr-2">126 Timed Out</span>
+                <span className="status-badge bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium mr-2">1,959,901 Completed</span>
+                <span className="status-badge bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-medium mr-2">5,361 Failed</span>
+                <span className="status-badge bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs font-medium mr-2">452 Continued as New</span>
+                <span className="status-badge bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-medium mr-2">2 Canceled</span>
+                <span className="status-badge bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs font-medium">220 Terminated</span>
+              </>
+            ) : (
+              <span className="status-badge completed">1 Completed</span>
+            )}
           </div>
         </div>
-        <button className="start-workflow-btn">
-          <Play size={16} />
-          Start Workflow
+        <button 
+          onClick={() => setIsHighVolumeView(!isHighVolumeView)}
+          className="start-workflow-btn"
+        >
+          <BarChart3 size={16} />
+          {isHighVolumeView ? 'Normal View' : 'High Volume'}
         </button>
       </div>
 
@@ -170,7 +210,9 @@ const Workflows: React.FC = () => {
           <button className="pagination-btn">
             <ChevronLeft size={16} />
           </button>
-          <span className="pagination-info">1-1 of 1</span>
+          <span className="pagination-info">
+            {isHighVolumeView ? '1-100 of 1,966,085' : '1-1 of 1'}
+          </span>
           <button className="pagination-btn">
             <ChevronRight size={16} />
           </button>
