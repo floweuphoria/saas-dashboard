@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import * as Frigade from '@frigade/react'
+import { useFlags } from 'launchdarkly-react-client-sdk'
 import {
   Eye,
   Clock,
@@ -20,30 +21,50 @@ import { NewBadge } from './NewBadge'
 interface NavItemProps {
   icon: React.ReactNode;
   label: string;
-  to: string;
+  to?: string;
   active?: boolean;
   badge?: React.ReactNode;
+  onClick?: () => void;
 }
 
-const NavItem: React.FC<NavItemProps> = ({ icon, label, to, active = false, badge }) => {
+const NavItem: React.FC<NavItemProps> = ({ icon, label, to, active = false, badge, onClick }) => {
+  const content = (
+    <div className="flex items-center">
+      <span className="mr-3">{icon}</span>
+      <span>{label}</span>
+    </div>
+  );
+
+  const className = `flex items-center justify-between px-4 py-2 text-sm ${
+    to || onClick ? 'cursor-pointer' : 'cursor-default opacity-50'
+  } ${
+    active ? 'bg-indigo-800 text-white' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white'
+  }`;
+
+  if (to) {
+    return (
+      <Link to={to} className={className}>
+        {content}
+        {badge && <span className="ml-2">{badge}</span>}
+      </Link>
+    );
+  }
+
   return (
-    <Link
-      to={to}
-      className={`flex items-center justify-between px-4 py-2 text-sm cursor-pointer ${
-        active ? 'bg-indigo-800 text-white' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white'
-      }`}
-    >
-      <div className="flex items-center">
-        <span className="mr-3">{icon}</span>
-        <span>{label}</span>
-      </div>
+    <div className={className} onClick={onClick || undefined}>
+      {content}
       {badge && <span className="ml-2">{badge}</span>}
-    </Link>
-  )
+    </div>
+  );
 }
 
 export const NewSidebar: React.FC = () => {
   const location = useLocation()
+  
+  // LaunchDarkly A/B test for Welcome vs Onboarding
+  // We added your flag key. The React SDK uses camelCase for flag keys automatically
+  // useFlags is a custom hook which returns all feature flags
+  const { abTest } = useFlags()
   
   return (
     <aside className="w-[184px] bg-gradient-to-b from-indigo-600 via-indigo-700 to-indigo-900 flex flex-col h-full">
@@ -67,19 +88,38 @@ export const NewSidebar: React.FC = () => {
       </div>
       <nav className="flex-1">
         <NavItem icon={<Eye size={18} />} label="Workflows" to="/" active={location.pathname === '/'} />
-        <NavItem icon={<Clock size={18} />} label="Schedules" to="/schedules" active={location.pathname === '/schedules'} />
-        <NavItem icon={<Layers size={18} />} label="Batch" to="/batch" active={location.pathname === '/batch'} />
-        <NavItem icon={<Server size={18} />} label="Deployments" to="/deployments" active={location.pathname === '/deployments'} />
-        <NavItem icon={<Folder size={18} />} label="Namespaces" to="/namespaces" active={location.pathname === '/namespaces'} />
+        <NavItem icon={<Clock size={18} />} label="Schedules" />
+        <NavItem icon={<Layers size={18} />} label="Batch" />
+        <NavItem icon={<Server size={18} />} label="Deployments" />
+        <NavItem icon={<Folder size={18} />} label="Namespaces" />
         <NavItem icon={<Atom size={18} />} label="Nexus" to="/nexus" active={location.pathname === '/nexus'} badge={<NewBadge />} />
         <div className="border-t border-indigo-600 my-2"></div>
-        <NavItem icon={<BarChart2 size={18} />} label="Usage" to="/usage" active={location.pathname === '/usage'} />
-        <NavItem icon={<CreditCard size={18} />} label="Billing" to="/billing" active={location.pathname === '/billing'} />
-        <NavItem icon={<Settings size={18} />} label="Settings" to="/settings" active={location.pathname === '/settings'} />
+        <NavItem icon={<BarChart2 size={18} />} label="Usage" />
+        <NavItem icon={<CreditCard size={18} />} label="Billing" />
+        <NavItem icon={<Settings size={18} />} label="Settings" />
         <div className="border-t border-indigo-600 my-2"></div>
-        <NavItem icon={<LifeBuoy size={18} />} label="Support" to="/support" active={location.pathname === '/support'} />
-        <NavItem icon={<FileText size={18} />} label="Docs" to="/docs" active={location.pathname === '/docs'} />
-        <NavItem icon={<Home size={18} />} label="Welcome" to="/welcome" active={location.pathname === '/welcome'} />
+        <NavItem 
+          icon={<LifeBuoy size={18} />} 
+          label="Support" 
+          onClick={() => {
+            // Test Sentry error capture
+            try {
+              throw new Error("Sentry test error from Support button!");
+            } catch (error) {
+              // Let Sentry capture the error, but don't let it crash the app
+              console.error("Captured error for Sentry:", error);
+            }
+          }}
+        />
+        <NavItem icon={<FileText size={18} />} label="Docs" />
+        {/* LaunchDarkly A/B test: Welcome vs Onboarding */}
+        {abTest ? (
+          // TODO: Put your feature here
+          <NavItem icon={<Home size={18} />} label="Onboarding" to="/welcome" active={location.pathname === '/welcome'} />
+        ) : (
+          // TODO: Put your fallback behavior here
+          <NavItem icon={<Home size={18} />} label="Welcome" to="/welcome" active={location.pathname === '/welcome'} />
+        )}
       </nav>
       <div className="p-4 text-white text-center">
         <div className="mb-3" style={{ fontSize: '0.75rem' }}>
