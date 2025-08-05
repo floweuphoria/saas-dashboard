@@ -1,5 +1,5 @@
-import React, { StrictMode, useEffect } from 'react';
-import { createRoot } from 'react-dom/client';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -8,7 +8,6 @@ import * as amplitude from '@amplitude/analytics-browser';
 import { sessionReplayPlugin } from '@amplitude/plugin-session-replay-browser';
 import { webAttributionPlugin } from '@amplitude/plugin-web-attribution-browser';
 import * as engagement from '@amplitude/engagement-browser';
-import { LDProvider, useLDClient } from 'launchdarkly-react-client-sdk';
 
 // Initialize Sentry BEFORE rendering the app
 Sentry.init({
@@ -42,36 +41,15 @@ engagement.init('82425297ec1429202a964637ed2eb10a', {
 
 console.log("Amplitude and Engagement SDKs initialized successfully");
 
-// LaunchDarkly App wrapper with tracking
-function AppWithLaunchDarkly() {
-  const ldClient = useLDClient();
-
-  useEffect(() => {
-    // Tracking your memberId lets us know you are connected.
-    ldClient?.track('6886d508cec2e0099633434e');
-  }, [ldClient]);
-
-  return (
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+root.render(
+  <React.StrictMode>
     <Sentry.ErrorBoundary fallback={<div>Something went wrong</div>} showDialog>
       <App />
     </Sentry.ErrorBoundary>
-  );
-}
-
-// A "context" is a data object representing users, devices, organizations, and other entities.
-const context = {
-  kind: 'user',
-  key: 'user-key-123abcde',
-  email: 'biz@face.dev',
-};
-
-// The clientSideID is your SDK key.
-createRoot(document.getElementById('root') as HTMLElement).render(
-  <StrictMode>
-    <LDProvider clientSideID="6886d508cec2e0099633434f" context={context}>
-      <AppWithLaunchDarkly />
-    </LDProvider>
-  </StrictMode>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

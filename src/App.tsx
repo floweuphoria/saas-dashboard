@@ -94,7 +94,7 @@ function App() {
               </div>
             </div>
           } />
-          <Route path="/welcome" element={
+          <Route path="/get-started" element={
             <div className="flex h-screen w-full bg-white">
               <NewSidebar />
               <div className="flex flex-col flex-1 overflow-hidden">

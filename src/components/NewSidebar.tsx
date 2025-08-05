@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import * as Frigade from '@frigade/react'
-import { useFlags } from 'launchdarkly-react-client-sdk'
 import {
   Eye,
   Clock,
@@ -61,11 +60,6 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, to, active = false, badg
 export const NewSidebar: React.FC = () => {
   const location = useLocation()
   
-  // LaunchDarkly A/B test for Welcome vs Onboarding
-  // We added your flag key. The React SDK uses camelCase for flag keys automatically
-  // useFlags is a custom hook which returns all feature flags
-  const { abTest } = useFlags()
-  
   return (
     <aside className="w-[184px] bg-gradient-to-b from-indigo-600 via-indigo-700 to-indigo-900 flex flex-col h-full">
       <div className="p-4">
@@ -87,6 +81,8 @@ export const NewSidebar: React.FC = () => {
         </div>
       </div>
       <nav className="flex-1">
+        <NavItem icon={<Home size={18} />} label="Get Started" to="/get-started" active={location.pathname === '/get-started'} />
+        <div className="border-t border-indigo-600 my-2"></div>
         <NavItem icon={<Eye size={18} />} label="Workflows" to="/" active={location.pathname === '/'} />
         <NavItem icon={<Clock size={18} />} label="Schedules" />
         <NavItem icon={<Layers size={18} />} label="Batch" />
@@ -112,18 +108,10 @@ export const NewSidebar: React.FC = () => {
           }}
         />
         <NavItem icon={<FileText size={18} />} label="Docs" />
-        {/* LaunchDarkly A/B test: Welcome vs Onboarding */}
-        {abTest ? (
-          // TODO: Put your feature here
-          <NavItem icon={<Home size={18} />} label="Onboarding" to="/welcome" active={location.pathname === '/welcome'} />
-        ) : (
-          // TODO: Put your fallback behavior here
-          <NavItem icon={<Home size={18} />} label="Welcome" to="/welcome" active={location.pathname === '/welcome'} />
-        )}
       </nav>
       <div className="p-4 text-white text-center">
         <div className="mb-3" style={{ fontSize: '0.75rem' }}>
-          <Link to="/welcome" className="block">
+          <Link to="/get-started" className="block">
             <Frigade.ProgressBadge 
               flowId="flow_2rHXV1G1" 
               title="Quickstart"

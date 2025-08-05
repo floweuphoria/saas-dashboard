@@ -67,16 +67,6 @@ export const Welcome: React.FC = () => {
           <div className="flex-1">
             <h1 className="text-2xl font-bold text-gray-900 mb-8">Getting Started</h1>
             
-            {/* Sentry Test Button */}
-            <div className="mb-6">
-              <button 
-                onClick={() => {throw new Error("This is your first error!");}}
-                className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Break the world
-              </button>
-            </div>
-            
             <div className="space-y-6">
               <Frigade.Collection collectionId="collection_od1b24Rb" />
               <Frigade.Checklist.Collapsible

@@ -149,7 +149,10 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ onLogout }) => {
             <span>UTC</span>
             <ChevronDown size={16} className="ml-1" />
           </button>
-          <button className="p-2 border border-gray-200 rounded">
+          <button 
+            onClick={() => (window as any).engagement.rc.open()}
+            className="p-2 border border-gray-200 rounded"
+          >
             <Monitor size={16} />
           </button>
           <button className="p-2 border border-gray-200 rounded">
