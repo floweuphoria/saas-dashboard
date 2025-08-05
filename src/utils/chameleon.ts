@@ -13,7 +13,7 @@ const generateUidHash = (uid: string): string => {
 
 export const initChameleon = () => {
   // Initialize Chameleon with your API key
-  chameleon.init('VkwlmFr7F55Q5wfJLFCaxLUVXHsL-1UDYoI-G3F3xKyeOos2W8Z0', { 
+  chameleon.init('Su7MNxeG83Suu7L4mcguNXHddQd7kW3QoFWZiYkQbvTTZF-1UJlez-G5z2S0cxUqBModcU', { 
     fastUrl: 'https://fast.chameleon.io/' 
   });
 

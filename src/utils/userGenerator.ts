@@ -18,7 +18,7 @@ export const generateFakeUser = (): FakeUser => {
   const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
   const domain = domains[Math.floor(Math.random() * domains.length)];
   
-  const userId = `user_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+  const userId = `demo_user_12345`;
   const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${domain}`;
   const name = `${firstName} ${lastName}`;
   

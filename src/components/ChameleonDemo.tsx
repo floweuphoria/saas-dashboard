@@ -75,7 +75,7 @@ const ChameleonDemo: React.FC = () => {
             <HelpCircle size={20} />
             <div>
               <strong>API Key:</strong>
-              <p>SXhM1amPRRoR2TPYuc50qIPxzw7EWuDcQtkVlqGnN3nESR-1UDYoI-G3F3xKyeOos2W8Z0</p>
+              <p>Su7MNxeG83Suu7L4mcguNXHddQd7kW3QoFWZiYkQbvTTZF-1UJlez-G5z2S0cxUqBModcU</p>
             </div>
           </div>
           <div className="note-item">
